@@ -1,0 +1,20 @@
+{
+  "name": "Planner Premium 2026",
+  "short_name": "Planner26",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFD700",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192/FFD700/000000?text=26",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512/FFD700/000000?text=26",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
