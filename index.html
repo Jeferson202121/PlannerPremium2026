@@ -1,431 +1,154 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<<!DOCTYPE html>
-<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Planner 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Planner 2026</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlBsYW5uZXIgUHJlbWl1bSAyMDI2IiwKICAic2hvcnRfbmFtZSI6ICJQbGFubmVyMjYiLAogICJzdGFydF91cmwiOiAiaW5kZXguaHRtbCIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiI0ZGRkZGRiIsCiAgInRoZW1lX2NvbG9yIjogIiNGRkQ3MDAiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJodHRwczovL3ZpYS5wbGFjZWhvbGRlci5jb20vMTkyL0ZGRDcwMC8wMDAwMDA/dGV4dD0yNiIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0KfQ==">
+
     <style>
-        :root {
-            --gold: #FFD700;
-            --bg: #FFFFFF;
-            --card: #F9F9F9;
-            --text: #333333;
-            --border: #E0E0E0;
+        :root { --gold: #FFD700; --bg: #FFFFFF; --text: #333; --border: #EEE; }
+        body { font-family: 'Segoe UI', sans-serif; background: #F5F5F5; color: var(--text); margin: 0; padding: 15px; }
+        
+        header { 
+            background: var(--bg); padding: 25px; text-align: center; 
+            border-bottom: 4px solid var(--gold); border-radius: 0 0 20px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin: -15px -15px 20px -15px;
+        }
+        
+        .logo-premium {
+            width: 50px; height: 50px; background: var(--gold); color: white;
+            border-radius: 12px; margin: 0 auto 10px; display: flex;
+            align-items: center; justify-content: center; font-weight: bold; font-size: 22px;
         }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            margin: 0; padding: 15px;
-        }
-
-        header {
-            text-align: center;
-            padding: 20px;
-            border-bottom: 3px solid var(--gold);
-            margin-bottom: 20px;
-        }
-
-        .logo-box {
-            width: 60px; height: 60px;
-            background: var(--gold);
-            border-radius: 15px;
-            margin: 0 auto 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 24px; color: white;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-        }
-
-        /* Quadro Unificado Estilo Grade */
-        .quadro-unificado {
-            width: 100%;
-            overflow-x: auto;
-            background: var(--card);
-            border-radius: 15px;
-            border: 1px solid var(--border);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 600px;
-        }
-
-        th {
-            background: var(--gold);
-            color: #000;
-            padding: 12px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
-
-        td {
-            border: 1px solid var(--border);
-            padding: 10px;
-            vertical-align: top;
-            width: 14.2%;
-            height: 80px;
-        }
+        /* Quadro Unificado */
+        .quadro-wrapper { background: white; border-radius: 15px; overflow-x: auto; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; min-width: 700px; }
+        th { background: var(--gold); color: black; padding: 12px; font-size: 11px; text-transform: uppercase; }
+        td { border: 1px solid var(--border); padding: 8px; vertical-align: top; width: 14.2%; height: 100px; }
 
         .atv-card {
-            background: white;
-            border-left: 4px solid var(--gold);
-            padding: 8px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            font-size: 0.75rem;
-            cursor: pointer;
+            background: #FFFCEB; border-left: 3px solid var(--gold); padding: 6px;
+            margin-bottom: 5px; border-radius: 4px; font-size: 11px; cursor: pointer;
         }
-
         .atv-card strong { display: block; color: #000; }
-        .atv-card span { color: #666; font-style: italic; }
 
-        /* Botão e Modal */
+        /* Botão Add */
         .fab {
-            position: fixed; bottom: 20px; right: 20px;
-            background: var(--gold); width: 50px; height: 50px;
-            border-radius: 50%; border: none; font-size: 24px; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: fixed; bottom: 25px; right: 25px; background: var(--gold);
+            width: 55px; height: 55px; border-radius: 18px; border: none;
+            font-size: 28px; font-weight: bold; box-shadow: 0 5px 15px rgba(255,215,0,0.4);
         }
 
         #modal {
-            display: none; position: fixed; inset: 0;
-            background: rgba(255,255,255,0.95);
-            padding: 20px; flex-direction: column; justify-content: center;
+            display: none; position: fixed; inset: 0; background: white;
+            z-index: 999; padding: 30px; flex-direction: column; justify-content: center;
         }
-
-        input, select {
-            width: 100%; padding: 12px; margin: 10px 0;
-            border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box;
-        }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #DDD; border-radius: 10px; }
+        .btn-salvar { background: var(--gold); border: none; padding: 15px; border-radius: 10px; font-weight: bold; width: 100%; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-box">26</div>
-    <h1 style="margin:0; font-size: 1.2rem; letter-spacing: 2px;">QUADRO UNIFICADO PREMIUM</h1>
+    <div class="logo-premium">26</div>
+    <h1 style="margin:0; font-size: 1.1rem; letter-spacing: 1px;">MY SCHEDULE 2026</h1>
 </header>
 
-<div class="quadro-unificado">
+<div class="quadro-wrapper">
     <table>
-        <thead>
-            <tr>
-                <th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th>
-            </tr>
-        </thead>
-        <tbody id="corpo-quadro">
-            <tr>
-                <td id="d1"></td><td id="d2"></td><td id="d3"></td>
-                <td id="d4"></td><td id="d5"></td><td id="d6"></td><td id="d0"></td>
-            </tr>
+        <thead><tr><th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th></tr></thead>
+        <tbody id="grid">
+            <tr><td id="d1"></td><td id="d2"></td><td id="d3"></td><td id="d4"></td><td id="d5"></td><td id="d6"></td><td id="d0"></td></tr>
         </tbody>
     </table>
 </div>
 
-<button class="fab" onclick="abrir()">+</button>
+<button class="fab" onclick="toggleM(true)">+</button>
 
 <div id="modal">
-    <h2 style="text-align:center">Nova Atividade</h2>
-    <input type="text" id="esc" placeholder="Escola / Academia">
+    <h2 style="text-align:center; color: var(--gold)">NOVA ATIVIDADE</h2>
+    <input type="text" id="esc" placeholder="Instituição">
     <input type="text" id="atv" placeholder="Atividade">
-    <select id="diaSem">
+    <select id="diaS">
         <option value="1">Segunda</option><option value="2">Terça</option>
         <option value="3">Quarta</option><option value="4">Quinta</option>
         <option value="5">Sexta</option><option value="6">Sábado</option>
         <option value="0">Domingo</option>
     </select>
     <div style="display:flex; gap:10px;">
-        <input type="time" id="tIni">
-        <input type="time" id="tFim">
+        <input type="time" id="t1"> <input type="time" id="t2">
     </div>
-    <button onclick="salvar()" style="background:var(--gold); border:none; padding:15px; border-radius:10px; font-weight:bold; margin-top:20px;">SALVAR NO QUADRO</button>
-    <button onclick="fechar()" style="background:transparent; border:none; color:red; margin-top:10px;">Cancelar</button>
+    <button class="btn-salvar" onclick="salvar()">REGISTRAR NO QUADRO</button>
+    <button onclick="toggleM(false)" style="background:none; border:none; color:#999; margin-top:15px; width:100%">Cancelar</button>
 </div>
 
 <script>
     const SENHA = "2026";
-    let agenda = JSON.parse(localStorage.getItem('agenda_u_26')) || [];
+    let agenda = JSON.parse(localStorage.getItem('db_planner_26')) || [];
 
-    function abrir() { document.getElementById('modal').style.display = 'flex'; }
-    function fechar() { document.getElementById('modal').style.display = 'none'; }
-
-    function salvar() {
-        const item = {
-            id: Date.now(),
-            escola: document.getElementById('esc').value,
-            atividade: document.getElementById('atv').value,
-            dia: document.getElementById('diaSem').value,
-            inicio: document.getElementById('tIni').value,
-            fim: document.getElementById('tFim').value
-        };
-        agenda.push(item);
-        localStorage.setItem('agenda_u_26', JSON.stringify(agenda));
-        fechar();
-        renderizar();
-    }
-
-    function gerenciar(id) {
-        if(prompt("Senha para modificar:") === SENHA) {
-            agenda = agenda.filter(a => a.id !== id);
-            localStorage.setItem('agenda_u_26', JSON.stringify(agenda));
-            renderizar();
-        }
-    }
-
-    function renderizar() {
-        for(let i=0; i<7; i++) document.getElementById('d'+i).innerHTML = "";
-        
-        agenda.sort((a,b) => a.inicio.localeCompare(b.inicio)).forEach(a => {
-            const celula = document.getElementById('d'+a.dia);
-            celula.innerHTML += `
-                <div class="atv-card" onclick="gerenciar(${a.id})">
-                    <strong>${a.inicio} - ${a.escola}</strong>
-                    <span>${a.atividade}</span>
-                </div>
-            `;
-        });
-    }
-
-    // Monitor de Alarmes (5 minutos antes)
-    setInterval(() => {
-        const agora = new Date();
-        const agoraMin = agora.getHours() * 60 + agora.getMinutes();
-        const diaH = agora.getDay();
-
-        agenda.forEach(a => {
-            if(parseInt(a.dia) === diaH) {
-                const [hI, mI] = a.inicio.split(':').map(Number);
-                const [hF, mF] = a.fim.split(':').map(Number);
-                
-                if (agoraMin === (hI * 60 + mI - 5)) {
-                    alert(`⚠️ AVISO: Sua atividade "${a.atividade}" na ${a.escola} começa em 5 minutos!`);
-                }
-                if (agoraMin === (hF * 60 + mF - 5)) {
-                    alert(`🔔 AVISO: Sua atividade "${a.atividade}" termina em 5 minutos.`);
-                }
-            }
-        });
-    }, 60000);
-
-    renderizar();
-</script>
-</body>
-</html>head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Planner 2026</title>
-    <style>
-        :root {
-            --gold: #FFD700;
-            --bg: #FFFFFF;
-            --card: #F9F9F9;
-            --text: #333333;
-            --border: #E0E0E0;
-        }
-
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            margin: 0; padding: 15px;
-        }
-
-        header {
-            text-align: center;
-            padding: 20px;
-            border-bottom: 3px solid var(--gold);
-            margin-bottom: 20px;
-        }
-
-        .logo-box {
-            width: 60px; height: 60px;
-            background: var(--gold);
-            border-radius: 15px;
-            margin: 0 auto 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 24px; color: white;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-        }
-
-        /* Quadro Unificado Estilo Grade */
-        .quadro-unificado {
-            width: 100%;
-            overflow-x: auto;
-            background: var(--card);
-            border-radius: 15px;
-            border: 1px solid var(--border);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 600px;
-        }
-
-        th {
-            background: var(--gold);
-            color: #000;
-            padding: 12px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
-
-        td {
-            border: 1px solid var(--border);
-            padding: 10px;
-            vertical-align: top;
-            width: 14.2%;
-            height: 80px;
-        }
-
-        .atv-card {
-            background: white;
-            border-left: 4px solid var(--gold);
-            padding: 8px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            font-size: 0.75rem;
-            cursor: pointer;
-        }
-
-        .atv-card strong { display: block; color: #000; }
-        .atv-card span { color: #666; font-style: italic; }
-
-        /* Botão e Modal */
-        .fab {
-            position: fixed; bottom: 20px; right: 20px;
-            background: var(--gold); width: 50px; height: 50px;
-            border-radius: 50%; border: none; font-size: 24px; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        #modal {
-            display: none; position: fixed; inset: 0;
-            background: rgba(255,255,255,0.95);
-            padding: 20px; flex-direction: column; justify-content: center;
-        }
-
-        input, select {
-            width: 100%; padding: 12px; margin: 10px 0;
-            border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box;
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="logo-box">26</div>
-    <h1 style="margin:0; font-size: 1.2rem; letter-spacing: 2px;">QUADRO UNIFICADO PREMIUM</h1>
-</header>
-
-<div class="quadro-unificado">
-    <table>
-        <thead>
-            <tr>
-                <th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th>
-            </tr>
-        </thead>
-        <tbody id="corpo-quadro">
-            <tr>
-                <td id="d1"></td><td id="d2"></td><td id="d3"></td>
-                <td id="d4"></td><td id="d5"></td><td id="d6"></td><td id="d0"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<button class="fab" onclick="abrir()">+</button>
-
-<div id="modal">
-    <h2 style="text-align:center">Nova Atividade</h2>
-    <input type="text" id="esc" placeholder="Escola / Academia">
-    <input type="text" id="atv" placeholder="Atividade">
-    <select id="diaSem">
-        <option value="1">Segunda</option><option value="2">Terça</option>
-        <option value="3">Quarta</option><option value="4">Quinta</option>
-        <option value="5">Sexta</option><option value="6">Sábado</option>
-        <option value="0">Domingo</option>
-    </select>
-    <div style="display:flex; gap:10px;">
-        <input type="time" id="tIni">
-        <input type="time" id="tFim">
-    </div>
-    <button onclick="salvar()" style="background:var(--gold); border:none; padding:15px; border-radius:10px; font-weight:bold; margin-top:20px;">SALVAR NO QUADRO</button>
-    <button onclick="fechar()" style="background:transparent; border:none; color:red; margin-top:10px;">Cancelar</button>
-</div>
-
-<script>
-    const SENHA = "2026";
-    let agenda = JSON.parse(localStorage.getItem('agenda_u_26')) || [];
-
-    function abrir() { document.getElementById('modal').style.display = 'flex'; }
-    function fechar() { document.getElementById('modal').style.display = 'none'; }
+    function toggleM(s) { document.getElementById('modal').style.display = s ? 'flex' : 'none'; }
 
     function salvar() {
         const item = {
             id: Date.now(),
-            escola: document.getElementById('esc').value,
-            atividade: document.getElementById('atv').value,
-            dia: document.getElementById('diaSem').value,
-            inicio: document.getElementById('tIni').value,
-            fim: document.getElementById('tFim').value
+            esc: document.getElementById('esc').value,
+            atv: document.getElementById('atv').value,
+            dia: document.getElementById('diaS').value,
+            ini: document.getElementById('t1').value,
+            fim: document.getElementById('t2').value
         };
+        if(!item.esc || !item.ini) return alert("Preencha os dados!");
         agenda.push(item);
-        localStorage.setItem('agenda_u_26', JSON.stringify(agenda));
-        fechar();
-        renderizar();
+        localStorage.setItem('db_planner_26', JSON.stringify(agenda));
+        toggleM(false);
+        render();
     }
 
     function gerenciar(id) {
-        if(prompt("Senha para modificar:") === SENHA) {
+        if(prompt("Senha 2026:") === SENHA) {
             agenda = agenda.filter(a => a.id !== id);
-            localStorage.setItem('agenda_u_26', JSON.stringify(agenda));
-            renderizar();
+            localStorage.setItem('db_planner_26', JSON.stringify(agenda));
+            render();
         }
     }
 
-    function renderizar() {
+    function render() {
         for(let i=0; i<7; i++) document.getElementById('d'+i).innerHTML = "";
-        
-        agenda.sort((a,b) => a.inicio.localeCompare(b.inicio)).forEach(a => {
-            const celula = document.getElementById('d'+a.dia);
-            celula.innerHTML += `
+        agenda.sort((a,b) => a.ini.localeCompare(b.ini)).forEach(a => {
+            document.getElementById('d'+a.dia).innerHTML += `
                 <div class="atv-card" onclick="gerenciar(${a.id})">
-                    <strong>${a.inicio} - ${a.escola}</strong>
-                    <span>${a.atividade}</span>
-                </div>
-            `;
+                    <strong>${a.ini} - ${a.esc}</strong>
+                    <span>${a.atv}</span>
+                </div>`;
         });
     }
 
-    // Monitor de Alarmes (5 minutos antes)
+    // ALARMES 5 MIN ANTES
     setInterval(() => {
-        const agora = new Date();
-        const agoraMin = agora.getHours() * 60 + agora.getMinutes();
-        const diaH = agora.getDay();
-
+        const n = new Date();
+        const agoraMin = n.getHours() * 60 + n.getMinutes();
         agenda.forEach(a => {
-            if(parseInt(a.dia) === diaH) {
-                const [hI, mI] = a.inicio.split(':').map(Number);
+            if(parseInt(a.dia) === n.getDay()) {
+                const [hI, mI] = a.ini.split(':').map(Number);
                 const [hF, mF] = a.fim.split(':').map(Number);
-                
-                if (agoraMin === (hI * 60 + mI - 5)) {
-                    alert(`⚠️ AVISO: Sua atividade "${a.atividade}" na ${a.escola} começa em 5 minutos!`);
-                }
-                if (agoraMin === (hF * 60 + mF - 5)) {
-                    alert(`🔔 AVISO: Sua atividade "${a.atividade}" termina em 5 minutos.`);
-                }
+                if (agoraMin === (hI * 60 + mI - 5)) alert(`⚠️ INÍCIO EM 5 MIN: ${a.atv} (${a.esc})`);
+                if (agoraMin === (hF * 60 + mF - 5)) alert(`🔔 FIM EM 5 MIN: ${a.atv}`);
             }
         });
     }, 60000);
 
-    renderizar();
+    // Ativador de Instalador Automático
+    if ('serviceWorker' in navigator) {
+        const sw = 'data:application/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZSA9PiBlLndhaXRVbnRpbChjYWNoZXMub3BlbigncDEnKSkpOwpzZWxmLmFkZEV2ZWudExpc3RlbmVyKCdmZXRjaCcsIGUgPT4gZS5yZXNwb25kV2l0aChmZXRjaChlLnJlcXVlc3QpLmNhdGNoKCgpID0+IGNhY2hlcy5tYXRjaChlLnJlcXVlc3QpKSkpOw==';
+        navigator.serviceWorker.register('data:application/javascript;base64,' + btoa(atob(sw.split(',')[1])));
+    }
+
+    render();
 </script>
 </body>
 </html>
